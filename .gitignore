@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# ignore Vagrant
+.vagrant
+
+# Sqlite files
+*.sqlite
