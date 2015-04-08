@@ -18,12 +18,15 @@ if [ -z "$TMUX" ]; then
 		VENV="$HOME/virtualenvs/pyne-sqla"
 		MAIN_CMD="cd $SRC && source $VENV/bin/activate"
 		SPARE_CMD="cd $SRC && source $VENV/bin/activate"
+		IPYTHON_NOTEBOOK="cd $SRC && source $VENV/bin/activate && ipython notebook --no-browser --ip=0.0.0.0"
 
 		# Create a window for userapp
 		tmux new-window -t pyne:1 -n 'main'
 		tmux send-keys -t pyne:1 "$MAIN_CMD" C-m
 		tmux new-window -t pyne:2 -n 'auth'
 		tmux send-keys -t pyne:2 "$SPARE_CMD" C-m
+		tmux new-window -t pyne:3 -n 'ipython[notebook]'
+		tmux send-keys -t pyne:3 "$IPYTHON_NOTEBOOK" C-m
 
 		tmux select-window -t pyne:1
 	fi
