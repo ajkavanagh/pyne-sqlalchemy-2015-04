@@ -23,7 +23,7 @@ if [ -z "$TMUX" ]; then
 		# Create a window for userapp
 		tmux new-window -t pyne:1 -n 'main'
 		tmux send-keys -t pyne:1 "$MAIN_CMD" C-m
-		tmux new-window -t pyne:2 -n 'auth'
+		tmux new-window -t pyne:2 -n 'extra'
 		tmux send-keys -t pyne:2 "$SPARE_CMD" C-m
 		tmux new-window -t pyne:3 -n 'ipython[notebook]'
 		tmux send-keys -t pyne:3 "$IPYTHON_NOTEBOOK" C-m
