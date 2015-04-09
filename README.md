@@ -1,5 +1,51 @@
 # Python Northeast Talk on SQLAlchemy
 
-This is the repository of the notes and presentation (Keynote format) of
-the talk that I will do (did) at the Python Northeast meetup on the
-8th April 2015.
+This is the repository of the notes and presentation (Keynote format) of the talk that I did at the Python Northeast meetup on the 8th April 2015.  It consists of:
+
+* A Vagrant file and associated provision file to run the iPython Notebook files.
+* The presentation in Keynote and PDF formats
+* A utils directory to build an example database used in the talk (Reflection playbook)
+* Some nice configuration files for setting up tmux and a fancy shell prompt
+
+Note that everything is in **Python 3**.
+
+## Vagrant file
+
+Just `git clone` the repository and do Vagrant up to build the vagrant image.  Then:
+
+```shell
+$ vagrant ssh
+
+... wait for the shell from the Vagrant box ...
+
+$ tmux-session
+```
+
+This will start the iPython notebook server.  This is bound, via the Vagrantfile to http://localhost:8888, which you can navigate to with your browser.  Then pick the Playbook you want to explore.  Remember to have a read of how to edit a iPython Notebook, but most of it should be fairly self explanatory.
+
+## Presentation
+
+The presentation is brief, and was only used as an introduction to the main talk, which was done using the iPython Notebooks.  It's also available in PDF for those without Keynote (i.e. most people!)
+
+## Utils
+
+The `utils` directory contains the code for building the `sqlite3` database file which is used as part of the Reflection Notebook.  In order to run it (in a tmux session call 'main'):
+
+```shell
+$ cd utils
+$ python build-testdb.py
+```
+
+This will create the `db.sqlite` file in the `utils` directory.
+
+## Configuration Files
+
+In the `provision` directory, there are various configuration files that are used when building the Vagrant box.  These are:
+
+* `dot.bashrc`: This becomes .bashrc in the `/home/vagrant` folder.  This is the standard Ubuntu 14.04 .bashrc with a few extra bits to work with Virtualenvs and the fancy prompt, and configures the `$PATH` variable to include `/home/vagrant/bin`.
+* `dot.tmux.conf`: This becomes .tmux.conf in the `/home/vagrant` folder.
+  * The tmux command is `Ctrl-A` rather than `Ctrl-B` because I've used `screen` for 15 years.
+  * I've changed the split commands to work like Vi(m).
+  * I've disabled logout, unless you hit `Ctrl-D` three times successively.
+* `tmux-session`: This is copied to the `/home/vagrant/bin` folder. This configures tmux to create 3 windows and automatically start iPython Notebook in the 3rd window.  Typing `tmux-session` at the command prompt configures the tmux session the first time it is run, and simply connects to a running server on subsequent invocations.
+* `virtualenv-svn-git-path-prompt.bash`: This is a collection of functions and a 'fancy prompt' that puts the git repository (or SVN!) and active virtualenv onto the path.
